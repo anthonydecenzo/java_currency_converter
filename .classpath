@@ -6,6 +6,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Anthony DeCenzo/Desktop/currencyconverter.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Anthony DeCenzo/Downloads/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Anthony DeCenzo/Downloads/gson-2.3.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
