@@ -1,14 +1,11 @@
 package java_currency_converter;
 
-import java.io.IOException;
-import java.net.*;
-
-public class execute {
+public class execute extends createGUI{
 	
-	public static void main(String [] args) throws MalformedURLException, IOException
+	public static void main(String [] args)
 	{	
 			createGUI gui = new createGUI();
 			gui.showGUI();
 	}
-	
+
 }
