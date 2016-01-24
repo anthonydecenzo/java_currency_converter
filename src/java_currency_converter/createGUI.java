@@ -17,7 +17,7 @@ import org.apache.commons.io.IOUtils;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class createGUI implements ActionListener {
+public class createGUI implements ActionListener{
 	
 	public double textField;
 	public JButton convertButton = new JButton("Convert");
@@ -25,7 +25,7 @@ public class createGUI implements ActionListener {
 	public JComboBox<String> originalCurrency = new JComboBox<String>();
 	public JComboBox<String> convertedCurrency = new JComboBox<String>();
 	public JFrame frame = new JFrame();
-	public  JTextField originalCurrencyTextField = new JTextField();
+	public static JTextField originalCurrencyTextField = new JTextField();
 	public JTextField convertedCurrencyTextField = new JTextField();
 	public JLabel equalsLabel = new JLabel("is = to");
 	
@@ -49,10 +49,9 @@ public class createGUI implements ActionListener {
 		convertedCurrencyTextField.setBounds(150, 70, 60, 20);
 		
 		originalCurrency.addItem("USD");
-		originalCurrency.addItem("CAD");
 		
 		convertedCurrency.addItem("CAD");
-		convertedCurrency.addItem("USD");
+		convertedCurrency.addItem("EUR");
 		
 		frame.getContentPane().add(equalsLabel);
 		frame.getContentPane().add(convertedCurrencyTextField);
@@ -70,14 +69,30 @@ public class createGUI implements ActionListener {
 	public void actionPerformed(ActionEvent e)
 	{
 		getCurrency getConversion = new getCurrency();
-		try {
-			double test = USDCAD();
-			String text = Double.toString(test);
-			convertedCurrencyTextField.setText(text);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		String comboBoxText2 = (String) convertedCurrency.getSelectedItem();
+		
+		if(comboBoxText2.equals("CAD"))
+		{
+			try {
+				double test = getConversion.USDCAD();
+				String text = Double.toString(test);
+				convertedCurrencyTextField.setText(text);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} else if(comboBoxText2.equals("EUR"))
+		{
+			try {
+				double test = getConversion.USDEUR();
+				String text = Double.toString(test);
+				convertedCurrencyTextField.setText(text);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
+		
 		
 	}
 	
@@ -86,21 +101,6 @@ public class createGUI implements ActionListener {
 		return originalCurrencyTextField.getText();
 	}
 	
-	public double USDCAD() throws MalformedURLException, IOException
-	{
-			URL convertAPI = new URL("http://apilayer.net/api/live?access_key=fb581cf502c6264c783c838c9034b988");
-			String jsonText = IOUtils.toString(convertAPI);
-			JsonParser parser = new JsonParser();
-			JsonObject json = parser.parse(jsonText).getAsJsonObject();
-			
-			String testText = json.get("quotes").toString();
-			json = parser.parse(testText).getAsJsonObject();
-
-			double conversion = json.get("USDCAD").getAsDouble();
-			
-			double textField = Double.parseDouble(originalCurrencyTextField.getText());
-			double sum = conversion * textField;
-			return Math.round(sum * 100.0) / 100.0;
-	}
+	
 }
 	
